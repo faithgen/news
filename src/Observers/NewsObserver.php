@@ -2,7 +2,7 @@
 
 namespace FaithGen\News\Observers\Ministry;
 
-use App\Events\Ministry\News\Saved;
+use FaithGen\News\Events\Saved;
 use FaithGen\News\Models\News;
 use FaithGen\SDK\Traits\FileTraits;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace FaithGen\News\Events\Ministry\News;
+namespace FaithGen\News\Events;
 
 use FaithGen\News\Models\News;
 use Illuminate\Broadcasting\Channel;
