@@ -13,5 +13,19 @@
             "email": "innocentmazando@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "FaithGen\\News\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "FaithGen\\News\\Providers\\NewsServiceProvider",
+                "FaithGen\\News\\Providers\\AuthServiceProvider",
+                "FaithGen\\News\\Providers\\EventServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "dev"
 }
