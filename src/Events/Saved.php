@@ -22,7 +22,7 @@ class Saved
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param News $news
      */
     public function __construct(News $news)
     {
@@ -42,7 +42,7 @@ class Saved
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @return Channel|array
      */
     public function broadcastOn()
     {
