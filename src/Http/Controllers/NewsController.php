@@ -29,23 +29,26 @@ class NewsController extends Controller
     function index(IndexRequest $request)
     {
         $news = $this->newsService->getParentRelationship()
+            ->with(['image'])
             ->where('title', 'LIKE', '%' . $request->filter_text . '%')
             ->orWhere('created_at', 'LIKE', '%' . $request->filter_text . '%')
             ->latest()
             ->paginate($request->has('limit') ? $request->limit : 15);
+        return $news;
         return ListResource::collection($news);
     }
 
     function create(CreateRequest $request)
     {
-        return $this->newsService->createFromRelationship($request->validated(), 'Article created succefully!');
+        return $this->newsService->createFromRelationship($request->validated(), 'Article created successfully!');
     }
 
-    function view(News $news)
+    function view($news)
     {
-        $this->authorize('news.view', $news);
+        $theNews = News::findOrFail($news);
+        auth()->user()->can('news.view', $theNews);
         NewsResource::withoutWrapping();
-        return new NewsResource($news);
+        return new NewsResource($theNews);
     }
 
     function delete(GetRequest $request)

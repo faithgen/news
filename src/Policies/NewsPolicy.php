@@ -26,8 +26,8 @@ class NewsPolicy
     /**
      * Determine whether the user can view the news.
      *
-     * @param \App\Models\Ministry $user
-     * @param \FaithGen\News\Models\News $news
+     * @param Ministry $user
+     * @param News $news
      * @return mixed
      */
     public function view(Ministry $user, News $news)
@@ -38,7 +38,7 @@ class NewsPolicy
     /**
      * Determine whether the user can create news.
      *
-     * @param \App\Models\Ministry $user
+     * @param Ministry $user
      * @return mixed
      */
     public function create(Ministry $user)
@@ -58,7 +58,7 @@ class NewsPolicy
      * Determine whether the user can update the news.
      *
      * @param \App\Models\Ministry $user
-     * @param \FaithGen\News\Models\News $news
+     * @param News $news
      * @return mixed
      */
     public function update(Ministry $user, News $news)
@@ -70,7 +70,7 @@ class NewsPolicy
      * Determine whether the user can delete the news.
      *
      * @param \App\Models\Ministry $user
-     * @param \FaithGen\News\Models\News $news
+     * @param News $news
      * @return mixed
      */
     public function delete(Ministry $user, News $news)
