@@ -12,7 +12,7 @@ use FaithGen\News\Http\Requests\News\UpdateRequest;
 use FaithGen\News\Http\Resources\Lists\News as ListResource;
 use FaithGen\News\Http\Resources\News as NewsResource;
 use FaithGen\News\Models\News;
-use App\Services\NewsService;
+use FaithGen\News\Services\NewsService;
 
 class NewsController extends Controller
 {
