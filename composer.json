@@ -1,0 +1,17 @@
+{
+    "name": "innoflash/news",
+    "description": "This will handle FaithGen news module on the API side",
+    "type": "library",
+    "require": {
+        "intervention/image": "^2.4@dev",
+        "faithgen/sdk": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "innoflash",
+            "email": "innocentmazando@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
