@@ -4,7 +4,7 @@
 namespace FaithGen\News\Helpers;
 
 
-use App\Models\Ministry\News;
+use FaithGen\News\Models\News;
 use FaithGen\SDK\Helpers\Helper;
 
 class NewsHelper extends Helper

@@ -2,6 +2,8 @@
 
 namespace FaithGen\News\Providers;
 
+use FaithGen\News\Models\News;
+use FaithGen\News\Observers\Ministry\NewsObserver;
 use Illuminate\Support\ServiceProvider;
 
 class NewsServiceProvider extends ServiceProvider
@@ -18,6 +20,8 @@ class NewsServiceProvider extends ServiceProvider
                 __DIR__.'/../storage/news/' => storage_path('app/public/news')
             ], 'faithgen-news-storage');
         }
+
+        News::observe(NewsObserver::class);
     }
 
     /**
