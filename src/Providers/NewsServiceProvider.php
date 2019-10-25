@@ -17,6 +17,7 @@ class NewsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/faithgen-news.php', 'faithgen-news');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->registerRoutes();
 
         if ($this->app->runningInConsole()) {
