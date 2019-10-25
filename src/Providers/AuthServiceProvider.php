@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\Gate;
 class AuthServiceProvider extends ServiceProvider
 {
     protected $policies = [
-        News::class => NewsPolicy::class
+        //   News::class => NewsPolicy::class
     ];
+
     /**
      * Bootstrap services.
      *
@@ -22,10 +23,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //news gates
-        Gate::define('news.create', '\FaithGen\News\Policies\NewsPolicy@create');
-        Gate::define('news.update', '\FaithGen\News\Policies\NewsPolicy@update');
-        Gate::define('news.delete', '\FaithGen\News\Policies\NewsPolicy@delete');
-        Gate::define('news.view', '\FaithGen\News\Policies\NewsPolicy@view');
+        Gate::define('news.create', [NewsPolicy::class, 'create']);
+        Gate::define('news.update', [NewsPolicy::class, 'update']);
+        Gate::define('news.delete', [NewsPolicy::class, 'delete']);
+        Gate::define('news.view', [NewsPolicy::class, 'view']);
 
     }
 

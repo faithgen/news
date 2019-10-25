@@ -21,7 +21,7 @@ class News extends JsonResource
             'date' => NewsHelper::getDates($this->created_at),
             'avatar' => NewsHelper::getAvatar($this->resource),
             'comments' => [
-              //  'count' => $this->comments()->count()
+                'count' => $this->comments()->count()
             ]
         ];
     }

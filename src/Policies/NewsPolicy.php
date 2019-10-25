@@ -2,7 +2,7 @@
 
 namespace FaithGen\News\Policies;
 
-use FaithGen\SDK\Helpers\Helper;
+use FaithGen\News\Helpers\NewsHelper;
 use FaithGen\News\Models\News;
 use Carbon\Carbon;
 use FaithGen\SDK\Models\Ministry;
@@ -30,7 +30,7 @@ class NewsPolicy
      * @param News $news
      * @return mixed
      */
-    public function view(Ministry $user, News $news)
+    public static function view(Ministry $user, News $news)
     {
         return $user->id === $news->ministry_id;
     }
@@ -41,13 +41,13 @@ class NewsPolicy
      * @param Ministry $user
      * @return mixed
      */
-    public function create(Ministry $user)
+    public static function create(Ministry $user)
     {
         if ($user->account->level !== 'Free')
             return true;
         else {
-            $sermonsCount = News::whereBetween('created_at', [Carbon::now()->firstOfMonth(), Carbon::now()->lastOfMonth()])->count();
-            if ($sermonsCount >= Helper::$freeNewsCount)
+            $newsCount = News::where('ministry_id', $user->id)->whereBetween('created_at', [Carbon::now()->firstOfMonth(), Carbon::now()->lastOfMonth()])->count();
+            if ($newsCount >= NewsHelper::$freeNewsCount)
                 return false;
             else
                 return true;
@@ -61,7 +61,7 @@ class NewsPolicy
      * @param News $news
      * @return mixed
      */
-    public function update(Ministry $user, News $news)
+    public static function update(Ministry $user, News $news)
     {
         return $user->id === $news->ministry_id;
     }
@@ -73,7 +73,7 @@ class NewsPolicy
      * @param News $news
      * @return mixed
      */
-    public function delete(Ministry $user, News $news)
+    public static function delete(Ministry $user, News $news)
     {
         return $user->id === $news->ministry_id;
     }

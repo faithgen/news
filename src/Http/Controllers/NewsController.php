@@ -34,7 +34,6 @@ class NewsController extends Controller
             ->orWhere('created_at', 'LIKE', '%' . $request->filter_text . '%')
             ->latest()
             ->paginate($request->has('limit') ? $request->limit : 15);
-        return $news;
         return ListResource::collection($news);
     }
 
@@ -53,12 +52,12 @@ class NewsController extends Controller
 
     function delete(GetRequest $request)
     {
-        return $this->newsService->destroy('Requests deleted');
+        return $this->newsService->destroy('News article deleted');
     }
 
     function update(UpdateRequest $request)
     {
-        return $this->newsService->update($request->validated(), 'Requests updated successfully');
+        return $this->newsService->update($request->validated(), 'News updated successfully');
     }
 
     function updatePicture(UpdateImageRequest $request)
@@ -66,7 +65,7 @@ class NewsController extends Controller
         $this->newsService->deleteFiles($this->newsService->getNews());
         try {
             event(new Saved($this->newsService->getNews()));
-            return $this->successResponse('Requests banner updated successfully!');
+            return $this->successResponse('News banner updated successfully!');
         } catch (\Exception $e) {
             abort(500, $e->getMessage());
         }
