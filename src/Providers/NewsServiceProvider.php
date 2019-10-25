@@ -16,18 +16,21 @@ class NewsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/faithgen-news.php', 'faithgen-news');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->mergeConfigFrom(__DIR__ . '/../config/faithgen-news.php', 'faithgen-news');
         $this->registerRoutes();
 
         if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../storage/news/' => storage_path('app/public/news')
-            ], 'faithgen-news-storage');
+            if (config('faithgen-sdk.source')) {
+                $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-            $this->publishes([
-                __DIR__ . '/../database/migrations/' => database_path('migrations')
-            ], 'faithgen-news-migrations');
+                $this->publishes([
+                    __DIR__ . '/../storage/news/' => storage_path('app/public/news')
+                ], 'faithgen-news-storage');
+
+                $this->publishes([
+                    __DIR__ . '/../database/migrations/' => database_path('migrations')
+                ], 'faithgen-news-migrations');
+            }
 
             $this->publishes([
                 __DIR__ . '/../config/faithgen-news.php' => config_path('faithgen-news.php')
@@ -40,8 +43,9 @@ class NewsServiceProvider extends ServiceProvider
     private function registerRoutes()
     {
         Route::group($this->routeConfiguration(), function () {
-
             $this->loadRoutesFrom(__DIR__ . '/../routes/news.php');
+            if (config('faithgen-sdk.source'))
+                $this->loadRoutesFrom(__DIR__ . '/../routes/source.php');
         });
     }
 
