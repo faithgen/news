@@ -7,10 +7,11 @@ use FaithGen\SDK\Traits\Relationships\Morphs\CommentableTrait;
 use FaithGen\SDK\Traits\Relationships\Morphs\ImageableTrait;
 use FaithGen\SDK\Models\UuidModel;
 use FaithGen\SDK\Traits\StorageTrait;
+use FaithGen\SDK\Traits\TitleTrait;
 
 class News extends UuidModel
 {
-    use ImageableTrait, CommentableTrait, BelongsToMinistryTrait, StorageTrait;
+    use ImageableTrait, CommentableTrait, BelongsToMinistryTrait, StorageTrait, TitleTrait;
 
     protected $table = 'news';
 
