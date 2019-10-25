@@ -1,6 +1,6 @@
 <?php
 
-Route::name('news.')->prefix('news/')->group(function () {
+Route::prefix('news/')->group(function () {
     Route::get('/', 'NewsController@index');
     Route::get('/{news}', 'NewsController@view');
     Route::post('create', 'NewsController@create');

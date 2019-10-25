@@ -16,8 +16,8 @@ class NewsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerRoutes();
         $this->mergeConfigFrom(__DIR__.'/../config/faithgen-news.php', 'faithgen-news');
+        $this->registerRoutes();
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -39,6 +39,7 @@ class NewsServiceProvider extends ServiceProvider
     private function registerRoutes()
     {
         Route::group($this->routeConfiguration(), function () {
+
             $this->loadRoutesFrom(__DIR__ . '/../routes/news.php');
         });
     }
@@ -48,7 +49,7 @@ class NewsServiceProvider extends ServiceProvider
         return [
             'prefix' => config('faithgen-news.prefix'),
             'namespace' => "FaithGen\News\Http\Controllers",
-            'middleware' => ['auth:api', 'ministry.activated'],
+            'middleware' => config('faithgen-news.middlewares'),
         ];
     }
 
