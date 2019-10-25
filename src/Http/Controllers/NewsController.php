@@ -42,12 +42,11 @@ class NewsController extends Controller
         return $this->newsService->createFromRelationship($request->validated(), 'Article created successfully!');
     }
 
-    function view($news)
+    function view(News $news)
     {
-        $theNews = News::findOrFail($news);
-        auth()->user()->can('news.view', $theNews);
+        auth()->user()->can('news.view', $news);
         NewsResource::withoutWrapping();
-        return new NewsResource($theNews);
+        return new NewsResource($news);
     }
 
     function delete(GetRequest $request)
