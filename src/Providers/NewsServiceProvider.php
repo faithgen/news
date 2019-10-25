@@ -17,15 +17,20 @@ class NewsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerRoutes();
+        $this->mergeConfigFrom(__DIR__.'/../config/faithgen-news.php', 'faithgen-news');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../storage/news/' => storage_path('app/public/news')
+                __DIR__ . '/../storage/news/' => storage_path('app/public/news')
             ], 'faithgen-news-storage');
 
             $this->publishes([
-                __DIR__.'/../database/migrations/' => database_path('migrations')
+                __DIR__ . '/../database/migrations/' => database_path('migrations')
             ], 'faithgen-news-migrations');
+
+            $this->publishes([
+                __DIR__ . '/../config/faithgen-news.php' => config_path('faithgen-news.php')
+            ], 'faithgen-news-config');
         }
 
         News::observe(NewsObserver::class);
@@ -37,10 +42,11 @@ class NewsServiceProvider extends ServiceProvider
             $this->loadRoutesFrom(__DIR__ . '/../routes/news.php');
         });
     }
+
     private function routeConfiguration()
     {
         return [
-            'prefix' => config('faithgen-news.prefix') ? config('faithgen-news.prefix') : 'api',
+            'prefix' => config('faithgen-news.prefix'),
             'namespace' => "FaithGen\News\Http\Controllers",
             'middleware' => ['auth:api', 'ministry.activated'],
         ];
