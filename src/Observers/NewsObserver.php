@@ -12,7 +12,7 @@ class NewsObserver
     /**
      * Handle the news "created" event.
      *
-     * @param  \FaithGen\News\Models\News  $news
+     * @param News $news
      * @return void
      */
     public function created(News $news)
@@ -23,7 +23,7 @@ class NewsObserver
     /**
      * Handle the news "updated" event.
      *
-     * @param  \FaithGen\News\Models\News  $news
+     * @param News $news
      * @return void
      */
     public function updated(News $news)
@@ -34,7 +34,7 @@ class NewsObserver
     /**
      * Handle the news "deleted" event.
      *
-     * @param  \FaithGen\News\Models\News  $news
+     * @param News $news
      * @return void
      */
     public function deleted(News $news)
@@ -48,7 +48,7 @@ class NewsObserver
     /**
      * Handle the news "restored" event.
      *
-     * @param  \FaithGen\News\Models\News  $news
+     * @param News $news
      * @return void
      */
     public function restored(News $news)
@@ -59,7 +59,7 @@ class NewsObserver
     /**
      * Handle the news "force deleted" event.
      *
-     * @param  \FaithGen\News\Models\News  $news
+     * @param News $news
      * @return void
      */
     public function forceDeleted(News $news)

@@ -2,7 +2,6 @@
 
 namespace FaithGen\News\Providers;
 
-use FaithGen\News\Models\News;
 use FaithGen\News\Policies\NewsPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
