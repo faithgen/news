@@ -5,7 +5,6 @@ namespace FaithGen\News\Providers;
 use FaithGen\News\Models\News;
 use FaithGen\News\Observers\Ministry\NewsObserver;
 use FaithGen\SDK\Traits\ConfigTrait;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class NewsServiceProvider extends ServiceProvider
@@ -20,9 +19,10 @@ class NewsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/faithgen-news.php', 'faithgen-news');
+
         $this->registerRoutes(__DIR__ . '/../routes/news.php', __DIR__ . '/../routes/source.php');
 
-        $this->setUpFiles(function () {
+        $this->setUpSourceFiles(function () {
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
             $this->publishes([
