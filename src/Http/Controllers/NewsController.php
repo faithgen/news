@@ -28,7 +28,7 @@ class NewsController extends Controller
 
     function index(IndexRequest $request)
     {
-        $news = $this->newsService->getParentRelationship()
+        $news = News::where('ministry_id', auth()->user()->id)
             ->with(['image'])
             ->where('title', 'LIKE', '%' . $request->filter_text . '%')
             ->orWhere('created_at', 'LIKE', '%' . $request->filter_text . '%')
