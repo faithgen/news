@@ -3,8 +3,9 @@
 namespace FaithGen\News\Http\Requests\News;
 
 use FaithGen\SDK\Helpers\Helper;
-use FaithGen\News\Models\News;
+use FaithGen\News\Services\NewsService;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class GetRequest extends FormRequest
 {
@@ -13,10 +14,9 @@ class GetRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(NewsService $newsService)
     {
-        $news = News::findOrFail(request()->news_id);
-        return $this->user()->can('news.view', $news);
+        return $this->user()->can('news.view', $newsService->getNews());
     }
 
     /**
@@ -29,5 +29,10 @@ class GetRequest extends FormRequest
         return [
             'news_id' => Helper::$idValidation
         ];
+    }
+
+    function failedAuthorization()
+    {
+        throw new AuthorizationException('You do not have access to this article');
     }
 }

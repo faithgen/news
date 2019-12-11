@@ -2,8 +2,9 @@
 
 namespace FaithGen\News\Http\Requests\News;
 
-use FaithGen\News\Models\News;
+use FaithGen\News\Services\NewsService;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class UpdateRequest extends FormRequest
 {
@@ -12,10 +13,9 @@ class UpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(NewsService $newsService)
     {
-        $news = News::findOrFail(request()->news_id);
-        return $this->user()->can('news.update', $news);
+        return $this->user()->can('news.update', $newsService->getNews());
     }
 
     /**
@@ -29,5 +29,10 @@ class UpdateRequest extends FormRequest
             'title' => 'required|string|between:3,255',
             'news' => 'required|string',
         ];
+    }
+
+    function failedAuthorization()
+    {
+        throw new AuthorizationException('You do not have access to this article');
     }
 }
