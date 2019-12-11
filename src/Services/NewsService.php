@@ -5,8 +5,8 @@ namespace FaithGen\News\Services;
 
 
 use FaithGen\News\Models\News;
-use FaithGen\SDK\Services\CRUDServices;
 use FaithGen\SDK\Traits\FileTraits;
+use InnoFlash\LaraStart\Services\CRUDServices;
 
 class NewsService extends CRUDServices
 {

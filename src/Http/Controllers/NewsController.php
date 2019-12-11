@@ -2,17 +2,20 @@
 
 namespace FaithGen\News\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use FaithGen\News\Events\Saved;
-use FaithGen\SDK\Http\Requests\IndexRequest;
-use FaithGen\News\Http\Requests\News\CreateRequest;
-use FaithGen\News\Http\Requests\News\GetRequest;
-use FaithGen\News\Http\Requests\News\UpdateImageRequest;
-use FaithGen\News\Http\Requests\News\UpdateRequest;
-use FaithGen\News\Http\Resources\Lists\News as ListResource;
-use FaithGen\News\Http\Resources\News as NewsResource;
 use FaithGen\News\Models\News;
+use FaithGen\News\Events\Saved;
+use App\Http\Controllers\Controller;
+use InnoFlash\LaraStart\Http\Helper;
 use FaithGen\News\Services\NewsService;
+use FaithGen\SDK\Helpers\CommentHelper;
+use FaithGen\SDK\Http\Requests\IndexRequest;
+use FaithGen\News\Http\Requests\CommentRequest;
+use FaithGen\News\Http\Requests\News\GetRequest;
+use FaithGen\News\Http\Requests\News\CreateRequest;
+use FaithGen\News\Http\Requests\News\UpdateRequest;
+use FaithGen\News\Http\Resources\News as NewsResource;
+use FaithGen\News\Http\Requests\News\UpdateImageRequest;
+use FaithGen\News\Http\Resources\Lists\News as ListResource;
 
 class NewsController extends Controller
 {
@@ -28,23 +31,23 @@ class NewsController extends Controller
 
     function index(IndexRequest $request)
     {
-        $news = News::where('ministry_id', auth()->user()->id)
+        $news =  auth()->user()->news()
             ->with(['image'])
             ->where('title', 'LIKE', '%' . $request->filter_text . '%')
             ->orWhere('created_at', 'LIKE', '%' . $request->filter_text . '%')
             ->latest()
-            ->paginate($request->has('limit') ? $request->limit : 15);
+            ->paginate(Helper::getLimit($request));
         return ListResource::collection($news);
     }
 
     function create(CreateRequest $request)
     {
-        return $this->newsService->createFromRelationship($request->validated(), 'Article created successfully!');
+        return $this->newsService->createFromParent($request->validated(), 'Article created successfully!');
     }
 
     function view(News $news)
     {
-        auth()->user()->can('news.view', $news);
+        $this->authorize('news.view', $news);
         NewsResource::withoutWrapping();
         return new NewsResource($news);
     }
@@ -68,5 +71,10 @@ class NewsController extends Controller
         } catch (\Exception $e) {
             abort(500, $e->getMessage());
         }
+    }
+
+    public function comment(CommentRequest $request)
+    {
+        return CommentHelper::createComment($this->newsService->getNews(), $request);
     }
 }
