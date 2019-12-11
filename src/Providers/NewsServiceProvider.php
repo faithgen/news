@@ -4,6 +4,7 @@ namespace FaithGen\News\Providers;
 
 use FaithGen\News\Models\News;
 use FaithGen\News\Observers\Ministry\NewsObserver;
+use FaithGen\News\Services\NewsService;
 use FaithGen\SDK\Traits\ConfigTrait;
 use Illuminate\Support\ServiceProvider;
 
@@ -39,12 +40,12 @@ class NewsServiceProvider extends ServiceProvider
         ], 'faithgen-news-config');
 
         News::observe(NewsObserver::class);
+
+        $this->app->singleton(NewsService::class, NewsService::class);
     }
 
     public function register()
-    {
-
-    }
+    { }
 
     /**
      * The config you want to be applied onto your routes
