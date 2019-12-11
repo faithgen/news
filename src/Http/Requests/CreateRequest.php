@@ -1,6 +1,6 @@
 <?php
 
-namespace FaithGen\News\Http\Requests\News;
+namespace FaithGen\News\Http\Requests;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;

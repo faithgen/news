@@ -1,6 +1,6 @@
 <?php
 
-namespace FaithGen\News\Http\Requests\News;
+namespace FaithGen\News\Http\Requests;
 
 use FaithGen\SDK\Helpers\Helper;
 use FaithGen\News\Services\NewsService;

@@ -2,6 +2,7 @@
 
 namespace FaithGen\News\Http\Controllers;
 
+use Illuminate\Http\Request;
 use FaithGen\News\Models\News;
 use FaithGen\News\Events\Saved;
 use App\Http\Controllers\Controller;
@@ -10,13 +11,12 @@ use FaithGen\News\Services\NewsService;
 use FaithGen\SDK\Helpers\CommentHelper;
 use FaithGen\SDK\Http\Requests\IndexRequest;
 use FaithGen\News\Http\Requests\CommentRequest;
-use FaithGen\News\Http\Requests\News\GetRequest;
-use FaithGen\News\Http\Requests\News\CreateRequest;
-use FaithGen\News\Http\Requests\News\UpdateRequest;
+use FaithGen\News\Http\Requests\GetRequest;
+use FaithGen\News\Http\Requests\CreateRequest;
+use FaithGen\News\Http\Requests\UpdateRequest;
 use FaithGen\News\Http\Resources\News as NewsResource;
 use FaithGen\News\Http\Requests\News\UpdateImageRequest;
 use FaithGen\News\Http\Resources\Lists\News as ListResource;
-use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace FaithGen\News\Http\Requests\News;
+namespace FaithGen\News\Http\Requests;
 
 use FaithGen\News\Services\NewsService;
 use Illuminate\Foundation\Http\FormRequest;
