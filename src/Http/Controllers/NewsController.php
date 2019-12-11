@@ -16,6 +16,7 @@ use FaithGen\News\Http\Requests\News\UpdateRequest;
 use FaithGen\News\Http\Resources\News as NewsResource;
 use FaithGen\News\Http\Requests\News\UpdateImageRequest;
 use FaithGen\News\Http\Resources\Lists\News as ListResource;
+use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
@@ -76,5 +77,11 @@ class NewsController extends Controller
     public function comment(CommentRequest $request)
     {
         return CommentHelper::createComment($this->newsService->getNews(), $request);
+    }
+
+    public function comments(Request $request, News $news)
+    {
+        $this->authorize('news.view', $news);
+        return CommentHelper::getComments($news, $request);
     }
 }
