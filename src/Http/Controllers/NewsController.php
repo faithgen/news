@@ -32,7 +32,6 @@ class NewsController extends Controller
 
     function index(IndexRequest $request)
     {
-        dd(auth()->guard());
         $news =  auth()->user()->news()
             ->with(['image'])
             ->where('title', 'LIKE', '%' . $request->filter_text . '%')
