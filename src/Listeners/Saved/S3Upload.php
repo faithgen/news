@@ -7,7 +7,7 @@ use FaithGen\News\Events\Saved;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class S3Upload
+class S3Upload implements ShouldQueue
 {
     /**
      * Create the event listener.

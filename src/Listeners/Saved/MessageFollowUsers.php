@@ -6,7 +6,7 @@ use FaithGen\News\Events\Saved;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class MessageFollowUsers
+class MessageFollowUsers implements ShouldQueue
 {
     /**
      * Create the event listener.

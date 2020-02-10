@@ -7,7 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Intervention\Image\ImageManager;
 
-class UploadImage
+class UploadImage implements ShouldQueue
 {
     /**
      * @var ImageManager
