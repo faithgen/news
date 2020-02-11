@@ -5,21 +5,26 @@ namespace FaithGen\News\Http\Controllers;
 use Illuminate\Http\Request;
 use FaithGen\News\Models\News;
 use FaithGen\News\Events\Saved;
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use InnoFlash\LaraStart\Http\Helper;
 use FaithGen\News\Services\NewsService;
 use FaithGen\SDK\Helpers\CommentHelper;
-use FaithGen\SDK\Http\Requests\IndexRequest;
-use FaithGen\News\Http\Requests\CommentRequest;
 use FaithGen\News\Http\Requests\GetRequest;
+use FaithGen\SDK\Http\Requests\IndexRequest;
+use InnoFlash\LaraStart\Traits\APIResponses;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use FaithGen\News\Http\Requests\CreateRequest;
 use FaithGen\News\Http\Requests\UpdateRequest;
+use FaithGen\News\Http\Requests\CommentRequest;
 use FaithGen\News\Http\Resources\News as NewsResource;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use FaithGen\News\Http\Requests\News\UpdateImageRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use FaithGen\News\Http\Resources\Lists\News as ListResource;
 
 class NewsController extends Controller
 {
+    use AuthorizesRequests, ValidatesRequests, APIResponses, DispatchesJobs;
     /**
      * @var NewsService
      */
