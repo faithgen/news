@@ -1,5 +1,5 @@
 {
-  "name": "innoflash/news",
+  "name": "faithgen/news",
   "description": "This will handle FaithGen news module on the API side",
   "type": "library",
   "require": {
