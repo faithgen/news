@@ -19,8 +19,6 @@ class NewsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/faithgen-news.php', 'faithgen-news');
-
         $this->registerRoutes(__DIR__ . '/../routes/news.php', __DIR__ . '/../routes/source.php');
 
         $this->setUpSourceFiles(function () {
@@ -40,12 +38,13 @@ class NewsServiceProvider extends ServiceProvider
         ], 'faithgen-news-config');
 
         News::observe(NewsObserver::class);
-
-        $this->app->singleton(NewsService::class, NewsService::class);
     }
 
     public function register()
-    { }
+    {
+	$this->mergeConfigFrom(__DIR__ . '/../config/faithgen-news.php', 'faithgen-news');
+        $this->app->singleton(NewsService::class, NewsService::class);
+    }
 
     /**
      * The config you want to be applied onto your routes
