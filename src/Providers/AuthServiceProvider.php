@@ -2,14 +2,15 @@
 
 namespace FaithGen\News\Providers;
 
+use FaithGen\News\Models\News;
+use Illuminate\Support\Facades\Gate;
 use FaithGen\News\Policies\NewsPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
     protected $policies = [
-        //   News::class => NewsPolicy::class
+           News::class => NewsPolicy::class
     ];
 
     /**

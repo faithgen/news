@@ -45,6 +45,7 @@ class NewsController extends Controller
             ->with(['image'])
             ->latest()
             ->paginate(Helper::getLimit($request));
+	ListResource::wrap('news');
         return ListResource::collection($news);
     }
 

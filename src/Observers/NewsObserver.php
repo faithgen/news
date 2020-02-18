@@ -2,7 +2,10 @@
 
 namespace FaithGen\News\Observers\Ministry;
 
-use FaithGen\News\Events\Saved;
+use FaithGen\News\Jobs\MessageFollowers;
+use FaithGen\News\Jobs\ProcessImage;
+use FaithGen\News\Jobs\S3Upload;
+use FaithGen\News\Jobs\UploadImage;
 use FaithGen\News\Models\News;
 use FaithGen\SDK\Traits\FileTraits;
 
@@ -17,7 +20,12 @@ class NewsObserver
      */
     public function created(News $news)
     {
-        event(new Saved($news));
+        MessageFollowers::withChain([
+            new UploadImage($news, request('image')),
+            new ProcessImage($news),
+            new S3Upload($news)
+        ])
+            ->dispatch($news);
     }
 
     /**
