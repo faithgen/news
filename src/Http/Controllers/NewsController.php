@@ -38,9 +38,11 @@ class NewsController extends Controller
     function index(IndexRequest $request)
     {
         $news =  auth()->user()->news()
+            ->where(function ($news) use ($request) {
+                return $news->where('title', 'LIKE', '%' . $request->filter_text . '%')
+                    ->orWhere('created_at', 'LIKE', '%' . $request->filter_text . '%');
+            })
             ->with(['image'])
-            ->where('title', 'LIKE', '%' . $request->filter_text . '%')
-            ->orWhere('created_at', 'LIKE', '%' . $request->filter_text . '%')
             ->latest()
             ->paginate(Helper::getLimit($request));
         return ListResource::collection($news);
