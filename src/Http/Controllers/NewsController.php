@@ -2,6 +2,7 @@
 
 namespace FaithGen\News\Http\Controllers;
 
+use Illuminate\Http\Request;
 use FaithGen\News\Models\News;
 use FaithGen\News\Events\Saved;
 use FaithGen\News\Jobs\S3Upload;
@@ -97,7 +98,7 @@ class NewsController extends Controller
 
     public function comments(Request $request, News $news)
     {
-        $this->authorize('news.view', $news);
+        $this->authorize('view', $news);
         return CommentHelper::getComments($news, $request);
     }
 }
