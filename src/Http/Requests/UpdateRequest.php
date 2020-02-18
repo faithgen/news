@@ -16,7 +16,8 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(NewsService $newsService)
     {
-        return $this->user()->can('update', $newsService->getNews());
+        return  $newsService->getNews() 
+            && $this->user()->can('update', $newsService->getNews());
     }
 
     /**
