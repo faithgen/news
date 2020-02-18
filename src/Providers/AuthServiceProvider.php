@@ -3,7 +3,6 @@
 namespace FaithGen\News\Providers;
 
 use FaithGen\News\Models\News;
-use Illuminate\Support\Facades\Gate;
 use FaithGen\News\Policies\NewsPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -21,9 +20,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //news gates
-        Gate::define('news.create', [NewsPolicy::class, 'create']);
     }
 
     /**

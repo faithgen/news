@@ -41,7 +41,7 @@ class NewsPolicy
      * @param Ministry $user
      * @return mixed
      */
-    public static function create(Ministry $user)
+    public function create(Ministry $user)
     {
         if ($user->account->level !== 'Free')
             return true;

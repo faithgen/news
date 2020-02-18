@@ -2,6 +2,7 @@
 
 namespace FaithGen\News\Http\Requests;
 
+use FaithGen\News\Models\News;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,7 +15,7 @@ class CreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('news.create');
+        return $this->user()->can('create', News::class);
     }
 
     /**
