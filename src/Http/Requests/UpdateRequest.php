@@ -2,6 +2,7 @@
 
 namespace FaithGen\News\Http\Requests;
 
+use FaithGen\SDK\Helpers\Helper;
 use FaithGen\News\Services\NewsService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -15,7 +16,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(NewsService $newsService)
     {
-        return $this->user()->can('news.update', $newsService->getNews());
+        return $this->user()->can('update', $newsService->getNews());
     }
 
     /**
@@ -28,6 +29,7 @@ class UpdateRequest extends FormRequest
         return [
             'title' => 'required|string|between:3,255',
             'news' => 'required|string',
+            'news_id' => Helper::$idValidation
         ];
     }
 
