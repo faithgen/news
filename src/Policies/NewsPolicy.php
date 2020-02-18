@@ -30,7 +30,7 @@ class NewsPolicy
      * @param News $news
      * @return mixed
      */
-    public static function view(Ministry $user, News $news)
+    public function view(Ministry $user, News $news)
     {
         return $user->id === $news->ministry_id;
     }

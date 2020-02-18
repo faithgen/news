@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Intervention\Image\ImageManager;
 
 class UploadImage implements ShouldQueue
 {
@@ -34,8 +35,17 @@ class UploadImage implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(ImageManager $imageManager)
     {
-        //
+        if ($this->image) {
+            $fileName = str_shuffle($this->article->id . time() . time()) . '.png';
+            $ogSave = storage_path('app/public/news/original/') . $fileName;
+            $imageManager->make($this->image)->save($ogSave);
+            $this->article->image()->updateOrcreate([
+                'imageable_id' => $this->article->id
+            ], [
+                'name' => $fileName
+            ]);
+        }
     }
 }

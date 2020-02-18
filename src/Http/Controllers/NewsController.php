@@ -45,7 +45,7 @@ class NewsController extends Controller
             ->with(['image'])
             ->latest()
             ->paginate(Helper::getLimit($request));
-	ListResource::wrap('news');
+        ListResource::wrap('news');
         return ListResource::collection($news);
     }
 
@@ -56,7 +56,7 @@ class NewsController extends Controller
 
     function view(News $news)
     {
-        $this->authorize('news.view', $news);
+        $this->authorize('view', $news);
         NewsResource::withoutWrapping();
         return new NewsResource($news);
     }

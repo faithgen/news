@@ -8,6 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Intervention\Image\ImageManager;
 
 class ProcessImage implements ShouldQueue
 {
@@ -31,8 +32,16 @@ class ProcessImage implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(ImageManager $imageManager)
     {
-        //
+        if ($this->article->image()->exists()) {
+            $ogImage = storage_path('app/public/news/original/') . $this->article->image->name;
+            $thumb100 = storage_path('app/public/news/100-100/') . $this->article->image->name;
+
+            $imageManager->make($ogImage)->fit(100, 100, function ($constraint) {
+                $constraint->upsize();
+                $constraint->aspectRatio();
+            }, 'center')->save($thumb100);
+        }
     }
 }
