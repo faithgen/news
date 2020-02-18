@@ -24,8 +24,6 @@ class AuthServiceProvider extends ServiceProvider
 
         //news gates
         Gate::define('news.create', [NewsPolicy::class, 'create']);
-        Gate::define('news.delete', [NewsPolicy::class, 'delete']);
-
     }
 
     /**
