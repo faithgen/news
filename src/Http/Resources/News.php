@@ -4,6 +4,7 @@ namespace FaithGen\News\Http\Resources;
 
 use FaithGen\News\Helpers\NewsHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
+use InnoFlash\LaraStart\Http\Helper;
 
 class News extends JsonResource
 {
@@ -18,7 +19,7 @@ class News extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'date' => NewsHelper::getDates($this->created_at),
+            'date' => Helper::getDates($this->created_at),
             'avatar' => NewsHelper::getAvatar($this->resource),
             'comments' => [
                 'count' => $this->comments()->count()
