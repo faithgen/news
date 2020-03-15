@@ -22,14 +22,14 @@ class NewsServiceProvider extends ServiceProvider
         $this->registerRoutes(__DIR__ . '/../routes/news.php', __DIR__ . '/../routes/source.php');
 
         $this->setUpSourceFiles(function () {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
             $this->publishes([
                 __DIR__ . '/../storage/news/' => storage_path('app/public/news')
             ], 'faithgen-news-storage');
 
             $this->publishes([
-                __DIR__ . '/../database/migrations/' => database_path('migrations')
+                __DIR__ . '/../../database/migrations/' => database_path('migrations')
             ], 'faithgen-news-migrations');
         });
 
@@ -43,7 +43,7 @@ class NewsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/faithgen-news.php', 'faithgen-news');
-        $this->app->singleton(NewsService::class, NewsService::class);
+        $this->app->singleton(NewsService::class);
     }
 
     /**
