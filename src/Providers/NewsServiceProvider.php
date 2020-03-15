@@ -25,7 +25,7 @@ class NewsServiceProvider extends ServiceProvider
             $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
             $this->publishes([
-                __DIR__ . '/../storage/news/' => storage_path('app/public/news')
+                __DIR__ . '/../../storage/news/' => storage_path('app/public/news')
             ], 'faithgen-news-storage');
 
             $this->publishes([
