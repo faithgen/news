@@ -34,7 +34,7 @@ class NewsServiceProvider extends ServiceProvider
         });
 
         $this->publishes([
-            __DIR__ . '/../config/faithgen-news.php' => config_path('faithgen-news.php')
+            __DIR__ . '/../../config/faithgen-news.php' => config_path('faithgen-news.php')
         ], 'faithgen-news-config');
 
         News::observe(NewsObserver::class);
@@ -42,7 +42,7 @@ class NewsServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/faithgen-news.php', 'faithgen-news');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/faithgen-news.php', 'faithgen-news');
         $this->app->singleton(NewsService::class, NewsService::class);
     }
 
