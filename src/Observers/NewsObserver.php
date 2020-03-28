@@ -1,6 +1,6 @@
 <?php
 
-namespace FaithGen\News\Observers\Ministry;
+namespace FaithGen\News\Observers;
 
 use FaithGen\News\Jobs\MessageFollowers;
 use FaithGen\News\Jobs\ProcessImage;
@@ -12,6 +12,7 @@ use FaithGen\SDK\Traits\FileTraits;
 class NewsObserver
 {
     use FileTraits;
+
     /**
      * Handle the news "created" event.
      *

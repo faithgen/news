@@ -3,7 +3,7 @@
 namespace FaithGen\News\Providers;
 
 use FaithGen\News\Models\News;
-use FaithGen\News\Observers\Ministry\NewsObserver;
+use FaithGen\News\Observers\NewsObserver;
 use FaithGen\News\Services\NewsService;
 use FaithGen\SDK\Traits\ConfigTrait;
 use Illuminate\Support\ServiceProvider;
