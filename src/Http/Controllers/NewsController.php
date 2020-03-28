@@ -2,29 +2,28 @@
 
 namespace FaithGen\News\Http\Controllers;
 
-use Illuminate\Http\Request;
-use FaithGen\News\Models\News;
-use FaithGen\News\Events\Saved;
-use FaithGen\News\Jobs\S3Upload;
-use Illuminate\Routing\Controller;
-use FaithGen\News\Jobs\UploadImage;
+use FaithGen\News\Http\Requests\CommentRequest;
+use FaithGen\News\Http\Requests\CreateRequest;
+use FaithGen\News\Http\Requests\GetRequest;
+use FaithGen\News\Http\Requests\UpdateImageRequest;
+use FaithGen\News\Http\Requests\UpdateRequest;
+use FaithGen\News\Http\Resources\Lists\News as ListResource;
+use FaithGen\News\Http\Resources\News as NewsResource;
+use FaithGen\News\Jobs\MessageFollowers;
 use FaithGen\News\Jobs\ProcessImage;
-use InnoFlash\LaraStart\Http\Helper;
+use FaithGen\News\Jobs\S3Upload;
+use FaithGen\News\Jobs\UploadImage;
+use FaithGen\News\Models\News;
 use FaithGen\News\Services\NewsService;
 use FaithGen\SDK\Helpers\CommentHelper;
-use FaithGen\News\Jobs\MessageFollowers;
-use FaithGen\News\Http\Requests\GetRequest;
 use FaithGen\SDK\Http\Requests\IndexRequest;
-use InnoFlash\LaraStart\Traits\APIResponses;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use FaithGen\News\Http\Requests\CreateRequest;
-use FaithGen\News\Http\Requests\UpdateRequest;
-use FaithGen\News\Http\Requests\CommentRequest;
-use FaithGen\News\Http\Requests\UpdateImageRequest;
-use FaithGen\News\Http\Resources\News as NewsResource;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use FaithGen\News\Http\Resources\Lists\News as ListResource;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use InnoFlash\LaraStart\Helper;
+use InnoFlash\LaraStart\Traits\APIResponses;
 
 class NewsController extends Controller
 {
@@ -41,7 +40,7 @@ class NewsController extends Controller
 
     function index(IndexRequest $request)
     {
-        $news =  auth()->user()->news()
+        $news = auth()->user()->news()
             ->where(function ($news) use ($request) {
                 return $news->where('title', 'LIKE', '%' . $request->filter_text . '%')
                     ->orWhere('created_at', 'LIKE', '%' . $request->filter_text . '%');

@@ -4,7 +4,7 @@ namespace FaithGen\News\Http\Resources;
 
 use FaithGen\News\Helpers\NewsHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
-use InnoFlash\LaraStart\Http\Helper;
+use InnoFlash\LaraStart\Helper;
 
 class News extends JsonResource
 {
