@@ -43,6 +43,7 @@ class NewsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/faithgen-news.php', 'faithgen-news');
+
         $this->app->singleton(NewsService::class);
     }
 
@@ -54,7 +55,6 @@ class NewsServiceProvider extends ServiceProvider
     {
         return [
             'prefix' => config('faithgen-news.prefix'),
-            'namespace' => "FaithGen\News\Http\Controllers",
             'middleware' => config('faithgen-news.middlewares'),
         ];
     }

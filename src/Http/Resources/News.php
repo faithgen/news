@@ -2,7 +2,7 @@
 
 namespace FaithGen\News\Http\Resources;
 
-use FaithGen\News\Helpers\NewsHelper;
+use FaithGen\SDK\Helpers\ImageHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 use InnoFlash\LaraStart\Helper;
 
@@ -11,7 +11,7 @@ class News extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -20,7 +20,7 @@ class News extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'date' => Helper::getDates($this->created_at),
-            'avatar' => NewsHelper::getAvatar($this->resource),
+            'avatar' => ImageHelper::getImage('news', $this->image, config('faithgen-sdk.ministries-server')),
             'comments' => [
                 'count' => $this->comments()->count()
             ],
