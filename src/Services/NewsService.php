@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FaithGen\News\Services;
-
 
 use FaithGen\News\Models\News;
 use FaithGen\SDK\Traits\FileTraits;
@@ -18,10 +16,11 @@ class NewsService extends CRUDServices
 
     public function __construct(News $news)
     {
-        if (request()->has('news_id'))
+        if (request()->has('news_id')) {
             $this->news = News::findOrFail(request()->news_id);
-        else
+        } else {
             $this->news = $news;
+        }
     }
 
     /**
@@ -32,26 +31,25 @@ class NewsService extends CRUDServices
         return $this->news;
     }
 
-
     /**
-     * This sets the attributes to be removed from the given set for updating or creating
+     * This sets the attributes to be removed from the given set for updating or creating.
      * @return mixed
      */
-    function getUnsetFields()
+    public function getUnsetFields()
     {
         return ['news_id', 'image'];
     }
 
     /**
-     * This get the model value or class of the model in the service
+     * This get the model value or class of the model in the service.
      * @return mixed
      */
-    function getModel()
+    public function getModel()
     {
         return $this->getNews();
     }
 
-    function getParentRelationship()
+    public function getParentRelationship()
     {
         return auth()->user()->news();
     }

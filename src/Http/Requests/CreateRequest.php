@@ -28,7 +28,7 @@ class CreateRequest extends FormRequest
         return [
             'title' => 'required|string|between:3,255',
             'news' => 'required|string',
-            'image' => 'required|base64image'
+            'image' => 'required|base64image',
         ];
     }
 

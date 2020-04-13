@@ -2,10 +2,10 @@
 
 namespace FaithGen\News\Http\Requests;
 
-use FaithGen\SDK\Helpers\Helper;
 use FaithGen\News\Services\NewsService;
-use Illuminate\Foundation\Http\FormRequest;
+use FaithGen\SDK\Helpers\Helper;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Foundation\Http\FormRequest;
 
 class CommentRequest extends FormRequest
 {
@@ -29,11 +29,11 @@ class CommentRequest extends FormRequest
     {
         return [
             'news_id' => Helper::$idValidation,
-            'comment' => 'required'
+            'comment' => 'required',
         ];
     }
 
-    function failedAuthorization()
+    public function failedAuthorization()
     {
         throw new AuthorizationException('You do not have access to this article');
     }

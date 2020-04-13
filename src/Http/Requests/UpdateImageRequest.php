@@ -2,8 +2,8 @@
 
 namespace FaithGen\News\Http\Requests;
 
-use FaithGen\SDK\Helpers\Helper;
 use FaithGen\News\Services\NewsService;
+use FaithGen\SDK\Helpers\Helper;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -29,11 +29,11 @@ class UpdateImageRequest extends FormRequest
     {
         return [
             'image' => 'required|base64image',
-            'news_id' => Helper::$idValidation
+            'news_id' => Helper::$idValidation,
         ];
     }
 
-    function failedAuthorization()
+    public function failedAuthorization()
     {
         throw new AuthorizationException('You do not have access to this article');
     }

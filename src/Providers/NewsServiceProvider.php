@@ -19,22 +19,22 @@ class NewsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerRoutes(__DIR__ . '/../../routes/news.php', __DIR__ . '/../../routes/source.php');
+        $this->registerRoutes(__DIR__.'/../../routes/news.php', __DIR__.'/../../routes/source.php');
 
         $this->setUpSourceFiles(function () {
-            $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
             $this->publishes([
-                __DIR__ . '/../../storage/news/' => storage_path('app/public/news')
+                __DIR__.'/../../storage/news/' => storage_path('app/public/news'),
             ], 'faithgen-news-storage');
 
             $this->publishes([
-                __DIR__ . '/../../database/migrations/' => database_path('migrations')
+                __DIR__.'/../../database/migrations/' => database_path('migrations'),
             ], 'faithgen-news-migrations');
         });
 
         $this->publishes([
-            __DIR__ . '/../../config/faithgen-news.php' => config_path('faithgen-news.php')
+            __DIR__.'/../../config/faithgen-news.php' => config_path('faithgen-news.php'),
         ], 'faithgen-news-config');
 
         News::observe(NewsObserver::class);
@@ -42,16 +42,16 @@ class NewsServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../../config/faithgen-news.php', 'faithgen-news');
+        $this->mergeConfigFrom(__DIR__.'/../../config/faithgen-news.php', 'faithgen-news');
 
         $this->app->singleton(NewsService::class);
     }
 
     /**
-     * The config you want to be applied onto your routes
+     * The config you want to be applied onto your routes.
      * @return array the rules eg, middleware, prefix, namespace
      */
-    function routeConfiguration(): array
+    public function routeConfiguration(): array
     {
         return [
             'prefix' => config('faithgen-news.prefix'),

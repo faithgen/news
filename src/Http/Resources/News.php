@@ -22,9 +22,9 @@ class News extends JsonResource
             'date' => Helper::getDates($this->created_at),
             'avatar' => ImageHelper::getImage('news', $this->image, config('faithgen-sdk.ministries-server')),
             'comments' => [
-                'count' => $this->comments()->count()
+                'count' => $this->comments()->count(),
             ],
-            'news' => $this->news
+            'news' => $this->news,
         ];
     }
 }
