@@ -13,7 +13,7 @@ class News extends UuidModel
 {
     use ImageableTrait, CommentableTrait, BelongsToMinistryTrait, StorageTrait, TitleTrait;
 
-    protected $table = 'news';
+    protected $table = 'fg_news';
 
     //****************************************************************************//
     //***************************** MODEL ATTRIBUTES *****************************//
