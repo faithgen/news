@@ -24,7 +24,7 @@ class NewsObserver
         MessageFollowers::withChain([
             new UploadImage($news, request('image')),
             new ProcessImage($news),
-            new S3Upload($news)
+            new S3Upload($news),
         ])
             ->dispatch($news);
     }

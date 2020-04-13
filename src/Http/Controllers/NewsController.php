@@ -44,11 +44,11 @@ class NewsController extends Controller
      * @param IndexRequest $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    function index(IndexRequest $request)
+    public function index(IndexRequest $request)
     {
         $news = auth()->user()->news()
             ->latest()
-            ->where(fn($news) => $news->search(['title', 'created_at'], $request->filter_text))
+            ->where(fn ($news) => $news->search(['title', 'created_at'], $request->filter_text))
             ->with(['image'])
             ->exclude(['news'])
             ->paginate(Helper::getLimit($request));
@@ -64,7 +64,7 @@ class NewsController extends Controller
      * @param CreateRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    function create(CreateRequest $request)
+    public function create(CreateRequest $request)
     {
         return $this->newsService->createFromParent($request->validated(), 'Article created successfully!');
     }
@@ -76,7 +76,7 @@ class NewsController extends Controller
      * @return NewsResource
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    function view(News $news)
+    public function view(News $news)
     {
         $this->authorize('view', $news);
 
@@ -91,7 +91,7 @@ class NewsController extends Controller
      * @param GetRequest $request
      * @return mixed
      */
-    function delete(GetRequest $request)
+    public function delete(GetRequest $request)
     {
         return $this->newsService->destroy('News article deleted');
     }
@@ -102,7 +102,7 @@ class NewsController extends Controller
      * @param UpdateRequest $request
      * @return \Illuminate\Http\JsonResponse|mixed
      */
-    function update(UpdateRequest $request)
+    public function update(UpdateRequest $request)
     {
         return $this->newsService->update($request->validated(), 'News updated successfully');
     }
@@ -113,14 +113,14 @@ class NewsController extends Controller
      * @param UpdateImageRequest $request
      * @return mixed
      */
-    function updatePicture(UpdateImageRequest $request)
+    public function updatePicture(UpdateImageRequest $request)
     {
         $this->newsService->deleteFiles($this->newsService->getNews());
         try {
             MessageFollowers::withChain([
                 new UploadImage($this->newsService->getNews(), $request->image),
                 new ProcessImage($this->newsService->getNews()),
-                new S3Upload($this->newsService->getNews())
+                new S3Upload($this->newsService->getNews()),
             ])->dispatch($this->newsService->getNews());
 
             return $this->successResponse('News banner updated successfully!');

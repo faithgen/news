@@ -2,9 +2,9 @@
 
 namespace FaithGen\News\Policies;
 
+use Carbon\Carbon;
 use FaithGen\News\Helpers\NewsHelper;
 use FaithGen\News\Models\News;
-use Carbon\Carbon;
 use FaithGen\SDK\Models\Ministry;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -43,14 +43,15 @@ class NewsPolicy
      */
     public function create(Ministry $user)
     {
-        if ($user->account->level !== 'Free')
+        if ($user->account->level !== 'Free') {
             return true;
-        else {
+        } else {
             $newsCount = News::where('ministry_id', $user->id)->whereBetween('created_at', [Carbon::now()->firstOfMonth(), Carbon::now()->lastOfMonth()])->count();
-            if ($newsCount >= NewsHelper::$freeNewsCount)
+            if ($newsCount >= NewsHelper::$freeNewsCount) {
                 return false;
-            else
+            } else {
                 return true;
+            }
         }
     }
 

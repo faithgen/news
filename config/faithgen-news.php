@@ -1,13 +1,13 @@
 <?php
+
 return [
     /**
-     * The prefix to your news routes
+     * The prefix to your news routes.
      */
     'prefix' => 'api',
 
-
     /**
-     * add more middlewares here if any
+     * add more middlewares here if any.
      */
     'middlewares' => [
         'auth:api', // this filters for authenticated requests from the ministry
