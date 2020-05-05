@@ -3,23 +3,29 @@
 namespace FaithGen\News\Jobs;
 
 use FaithGen\News\Models\News;
+use FaithGen\SDK\Traits\SavesToAmazonS3;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class S3Upload implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable,
+        InteractsWithQueue,
+        Queueable,
+        SerializesModels,
+        SavesToAmazonS3;
 
-    public $deleteWhenMissingModels = true;
-    protected $article;
+    public bool $deleteWhenMissingModels = true;
+    protected News $article;
 
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param News $article
      */
     public function __construct(News $article)
     {
@@ -33,6 +39,10 @@ class S3Upload implements ShouldQueue
      */
     public function handle()
     {
-        //
+        try {
+            $this->saveFiles($this->article);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+        }
     }
 }
