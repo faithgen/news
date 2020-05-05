@@ -11,15 +11,18 @@ use Illuminate\Queue\SerializesModels;
 
 class MessageFollowers implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable,
+        InteractsWithQueue,
+        Queueable,
+        SerializesModels;
 
-    public $deleteWhenMissingModels = true;
-    protected $article;
+    public bool $deleteWhenMissingModels = true;
+    protected News $article;
 
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param News $article
      */
     public function __construct(News $article)
     {
