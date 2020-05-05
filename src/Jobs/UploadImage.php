@@ -3,6 +3,7 @@
 namespace FaithGen\News\Jobs;
 
 use FaithGen\News\Models\News;
+use FaithGen\SDK\Traits\UploadsImages;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -15,7 +16,8 @@ class UploadImage implements ShouldQueue
     use Dispatchable,
         InteractsWithQueue,
         Queueable,
-        SerializesModels;
+        SerializesModels,
+        UploadsImages;
 
     public bool $deleteWhenMissingModels = true;
     protected News $article;
@@ -42,15 +44,6 @@ class UploadImage implements ShouldQueue
      */
     public function handle(ImageManager $imageManager)
     {
-        if ($this->image) {
-            $fileName = str_shuffle($this->article->id.time().time()).'.png';
-            $ogSave = storage_path('app/public/news/original/').$fileName;
-            $imageManager->make($this->image)->save($ogSave);
-            $this->article->image()->updateOrcreate([
-                'imageable_id' => $this->article->id,
-            ], [
-                'name' => $fileName,
-            ]);
-        }
+        $this->uploadImages($this->article, [$this->image], $imageManager);
     }
 }

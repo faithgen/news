@@ -3,6 +3,7 @@
 namespace FaithGen\News\Jobs;
 
 use FaithGen\News\Models\News;
+use FaithGen\SDK\Traits\ProcessesImages;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -15,7 +16,8 @@ class ProcessImage implements ShouldQueue
     use Dispatchable,
         InteractsWithQueue,
         Queueable,
-        SerializesModels;
+        SerializesModels,
+        ProcessesImages;
 
     public bool $deleteWhenMissingModels = true;
     protected News $article;
@@ -39,14 +41,6 @@ class ProcessImage implements ShouldQueue
      */
     public function handle(ImageManager $imageManager)
     {
-        if ($this->article->image()->exists()) {
-            $ogImage = storage_path('app/public/news/original/').$this->article->image->name;
-            $thumb100 = storage_path('app/public/news/100-100/').$this->article->image->name;
-
-            $imageManager->make($ogImage)->fit(100, 100, function ($constraint) {
-                $constraint->upsize();
-                $constraint->aspectRatio();
-            }, 'center')->save($thumb100);
-        }
+        $this->processImage($imageManager, $this->article);
     }
 }
