@@ -8,6 +8,6 @@ Route::prefix('news/')
     ->group(function () {
         Route::post('', [NewsController::class, 'create']);
         Route::delete('{news}', [NewsController::class, 'delete']);
-        Route::post('/update-picture', [NewsController::class, 'updatePicture']);
-        Route::post('/update', [NewsController::class, 'update']);
+        Route::post('{news}/update-picture', [NewsController::class, 'updatePicture']);
+        Route::post('/update/{news}', [NewsController::class, 'update']);
     });

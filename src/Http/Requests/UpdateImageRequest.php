@@ -3,7 +3,6 @@
 namespace FaithGen\News\Http\Requests;
 
 use FaithGen\News\Services\NewsService;
-use FaithGen\SDK\Helpers\Helper;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,6 +10,8 @@ class UpdateImageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
+     *
+     * @param \FaithGen\News\Services\NewsService $newsService
      *
      * @return bool
      */
@@ -29,7 +30,6 @@ class UpdateImageRequest extends FormRequest
     {
         return [
             'image' => 'required|base64image',
-            'news_id' => Helper::$idValidation,
         ];
     }
 
