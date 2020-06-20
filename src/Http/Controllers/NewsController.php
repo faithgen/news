@@ -2,7 +2,6 @@
 
 namespace FaithGen\News\Http\Controllers;
 
-use FaithGen\News\Http\Requests\CommentRequest;
 use FaithGen\News\Http\Requests\CreateRequest;
 use FaithGen\News\Http\Requests\GetRequest;
 use FaithGen\News\Http\Requests\UpdateImageRequest;
@@ -16,6 +15,7 @@ use FaithGen\News\Jobs\UploadImage;
 use FaithGen\News\Models\News;
 use FaithGen\News\Services\NewsService;
 use FaithGen\SDK\Helpers\CommentHelper;
+use FaithGen\SDK\Http\Requests\CommentRequest;
 use FaithGen\SDK\Http\Requests\IndexRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
