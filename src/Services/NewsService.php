@@ -35,7 +35,7 @@ class NewsService extends CRUDServices
      * This sets the attributes to be removed from the given set for updating or creating.
      * @return mixed
      */
-    public function getUnsetFields()
+    public function getUnsetFields(): array
     {
         return ['news_id', 'image'];
     }
