@@ -42,7 +42,7 @@ class NewsService extends CRUDServices
      */
     public function getUnsetFields(): array
     {
-        return ['news_id'];
+        return ['news_id', 'image'];
     }
 
     public function getParentRelationship()
